@@ -11,7 +11,10 @@ public static void main(String[] args) {
     consoleFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
     JButton submitButton = new JButton("Submit");
-    submitButton.setBounds(50,350,100, 40);
+    submitButton.setBounds(50,350,100, 30);
+
+    JLabel heading = new JLabel("SMART HOME");
+    heading.setBounds(150,10, 100,10);
 
     JLabel firstPerson = new JLabel("First Person");
     firstPerson.setBounds(350,50, 100,30);
@@ -44,7 +47,7 @@ public static void main(String[] args) {
     //JScrollPane jsp = new JScrollPane(imageLabel);
     imageLabel.setBounds(50,50, 200,200);*/
   //  panel.add(imageLabel);
-
+    panel.add(heading);
     panel.add(firstPerson);
     panel.add(secondPerson);
     panel.add(thirdPerson);

@@ -5,11 +5,14 @@ import com.github.sarxos.webcam.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import org.openimaj.image.processing.face.detection.*;
+
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 
 public class CaptureImage {
@@ -28,17 +31,20 @@ public class CaptureImage {
 
         img = webcam.getImage();
 
+        File outputfile = new File("src/main/resources/CameraCapture/CapturedImage_"+System.currentTimeMillis()+".jpg");
+        ImageIO.write((RenderedImage) img, "jpg", outputfile);
+
+        Image scaledImage = img.getScaledInstance(200,200, Image.SCALE_DEFAULT);
         JLabel imageLabel = new JLabel();
-        imageLabel.setIcon(new ImageIcon(img));
+        imageLabel.setIcon(new ImageIcon(scaledImage));
         imageLabel.setBounds(50,50, 200,200);
         panel.add(imageLabel);
         panel.setPreferredSize(WebcamResolution.VGA.getSize());
 
 
-        File outputfile = new File("src/main/resources/CameraCapture/CapturedImage_"+System.currentTimeMillis()+".jpg");
-        ImageIO.write((RenderedImage) img, "jpg", outputfile);
 
-        //webcam.close();
+
+        webcam.close();
 
 
 
