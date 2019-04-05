@@ -3,6 +3,7 @@ package facedetection;
 import org.openimaj.image.ImageUtilities;
 import org.openimaj.image.processing.face.detection.DetectedFace;
 import org.openimaj.image.processing.face.detection.HaarCascadeDetector;
+import org.openimaj.math.geometry.shape.Rectangle;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -20,8 +21,6 @@ public class FaceDetectionImpl {
 
         // Get the file from Camera Capture
 
-        File cameraCapture2  = new File("testMe");
-          cameraCapture2.createNewFile();
         File cameraCapture  = new File("src/main/resources/CameraCapture");
 
         for(int index  =  0  ;  index  < cameraCapture.listFiles().length  ; index  ++  ){
@@ -31,6 +30,7 @@ public class FaceDetectionImpl {
             for(int face  =  0 ; face < faces.size()  ; face ++){
                 
                 DetectedFace detectedFace  = faces.get(face);
+                detectedFace.setBounds( new Rectangle(0,0,28,28));
                 File faceFile  =  new File("src/main/resources/FaceCapture/Facefile_" + System.currentTimeMillis() + ".jpeg" );
                 ImageUtilities.createBufferedImage(detectedFace.getFacePatch());
                 boolean jpeg = ImageIO.write(ImageUtilities.createBufferedImage(detectedFace.getFacePatch()),"jpeg",faceFile);
