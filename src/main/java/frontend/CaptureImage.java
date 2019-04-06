@@ -41,6 +41,8 @@ public class CaptureImage {
         panel.add(imageLabel);
         panel.setPreferredSize(WebcamResolution.VGA.getSize());
 
+        webcam.close();
+
 
 
 

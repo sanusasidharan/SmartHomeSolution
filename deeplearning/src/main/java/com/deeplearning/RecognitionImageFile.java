@@ -9,8 +9,7 @@ import org.nd4j.linalg.dataset.api.preprocessor.DataNormalization;
 import org.nd4j.linalg.dataset.api.preprocessor.ImagePreProcessingScaler;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class RecognitionImageFile {
 
@@ -30,6 +29,7 @@ public class RecognitionImageFile {
         File locationToSave = new File(DATA_PATH + "/smart_home_model.zip");
         model = ModelSerializer.restoreMultiLayerNetwork(locationToSave);
 
+        System.out.println("File name" + imageFile.getName());
         // Use NativeImageLoader to convert to numerical matrix
         NativeImageLoader loader = new NativeImageLoader(height, width, channels);
 
@@ -43,12 +43,15 @@ public class RecognitionImageFile {
         INDArray output = model.output(image);
 
 
-        Map<String,String> scores  = new HashMap<String, String>();
+        Map<String,String> scores  = new TreeMap<String, String>();
         String[] lables = {"chitra","eby","indu","rafeek","retheeh","saju","sanooj","sanu","saranya","vasantha"};
         for(int index  = 0  ; index < lables.length ; index ++ ){
             scores.put(lables[index],output.getColumn(index).toString());
         }
 
+
+      //  System.out.println("scores :: " + scores);
+        scores = sortHashMapByValues(scores);
         System.out.println("scores :: " + scores);
 
         return  scores;
@@ -63,4 +66,41 @@ public class RecognitionImageFile {
         recognize.evalulateImageRecognization(imageFile);
     }
 
+    public LinkedHashMap<String, String> sortHashMapByValues(
+            Map<String, String> passedMap) {
+        List<String> mapKeys = new ArrayList<String>(passedMap.keySet());
+        List<String> mapValues = new ArrayList<String>(passedMap.values());
+        Collections.sort(mapKeys, new Comparator<String>() {
+            public int compare(String o1, String o2) {
+                return o2.compareTo(o1);
+            }
+        });
+        Collections.sort(mapValues, new Comparator<String>() {
+                    public int compare(String o1, String o2) {
+                        return o2.compareTo(o1);
+                    }
+                });
+
+                LinkedHashMap < String, String > sortedMap =
+                        new LinkedHashMap<String, String>();
+
+        Iterator<String> valueIt = mapValues.iterator();
+        while (valueIt.hasNext()) {
+            String val = valueIt.next();
+            Iterator<String> keyIt = mapKeys.iterator();
+
+            while (keyIt.hasNext()) {
+                String key = keyIt.next();
+                String comp1 = passedMap.get(key);
+                String comp2 = val;
+
+                if (comp1.equals(comp2)) {
+                    keyIt.remove();
+                    sortedMap.put(key, val);
+                    break;
+                }
+            }
+        }
+        return sortedMap;
+    }
 }

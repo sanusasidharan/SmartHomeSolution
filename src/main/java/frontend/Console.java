@@ -7,7 +7,7 @@ public class Console {
 
 public static void main(String[] args) {
     JFrame consoleFrame =new JFrame();
-
+    System.out.print("test");
     consoleFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
     JButton submitButton = new JButton("Submit");
@@ -34,6 +34,8 @@ public static void main(String[] args) {
 
 
     JPanel panel = (JPanel)consoleFrame.getContentPane();
+
+
 
     CaptureImage captureImage = new CaptureImage();
     try{
