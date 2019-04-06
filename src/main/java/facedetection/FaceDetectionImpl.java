@@ -38,7 +38,6 @@ public class FaceDetectionImpl {
             cameraCapture.listFiles()[index].delete();
 
         }
-
     }
 
     public static void main(String arg[]) throws Exception{

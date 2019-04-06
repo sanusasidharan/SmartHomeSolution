@@ -5,7 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.hackathon</groupId>
     <artifactId>com.hackathon</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>deeplearning</module>
+    </modules>
 
     <name>Smart Home Solution</name>
     <dependencies>
